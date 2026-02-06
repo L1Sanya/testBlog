@@ -54,15 +54,16 @@ class Post
         $db = Db::get();
         $stmt = $db->prepare("SELECT 1 FROM post_likes WHERE post_id = ? AND user_id = ?");
         $stmt->execute([$postId, $userId]);
-        return (bool) $stmt->fetchColumn();
+        return (bool)$stmt->fetchColumn();
     }
 
     public static function byCategory(
-        int $categoryId,
+        int    $categoryId,
         string $sort,
-        int $limit,
-        int $offset
-    ) {
+        int    $limit,
+        int    $offset
+    )
+    {
         $order = $sort === 'views' ? 'views DESC' : 'created_at DESC';
 
         $db = Db::get();
@@ -104,3 +105,5 @@ class Post
         $stmt->execute([$categoryId, $excludeId]);
         return $stmt->fetchAll();
     }
+
+}
